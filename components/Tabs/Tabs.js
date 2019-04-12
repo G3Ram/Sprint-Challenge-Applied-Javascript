@@ -1,3 +1,17 @@
+/*
+ *  TabLink is a constructor to create TabLink objects. For every tab in the screen this object will be created. One TabLink
+ *  object will be created for every tabData value.
+ *
+ *  @properties
+ *   tabElement - Refers to the DOM tab element
+ *   tabData - contains the data-tab value for each data - All, Javascript, Technology, Node.JS, JQuery or Bootstrap
+ *   cards - Based on the tabData the appropriate cards will be created. This is an array object containing TabCards objects.
+ *
+ *  @Method
+ *   selectTab - This method shows the cards on the screen based on the tab clicked.
+ *
+ */
+
 class TabLink {
   constructor(tabElement) {
     // assign this.tabElement to the tabElement DOM reference
@@ -56,6 +70,16 @@ class TabLink {
   }
 }
 
+/*
+ * This class represents the class=card object in the DOM.
+ *
+ * @properties
+ *  cardElement = respresents the DOM class = card elements
+ *
+ * @Method
+ *  selectCard() - This card sets the display style to flex so the items are row wrapped
+ *
+ */
 class TabCard {
   constructor(cardElement) {
     // Assign this.cardElement to the cardElement DOM reference
@@ -76,6 +100,9 @@ class TabCard {
 - In your .forEach() method's callback function, return a new instance of TabLink and pass in each tab as a parameter
 
 */
+
+// Creating objects for each tab. Invoking the TabLink constructor for each tab.
+
 let tabs = document.querySelectorAll(".tab").forEach(tab => {
   new TabLink(tab);
 });
