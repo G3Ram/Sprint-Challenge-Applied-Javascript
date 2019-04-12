@@ -10,20 +10,26 @@ class Carousel {
     );
 
     // getting the reference to right button
-    this.leftButton = document.querySelector(".right-button");
+    this.rightButton = document.getElementById("right-button");
 
     // get the images in an Array
-    this.images = Array.from(document.querySelectorAll("img")).map(image => {
-      console.log("-----------images ---------" + image.innerHTML);
-      this.image = new Image(image);
-      return this.image;
-    });
+    this.images = Array.from(document.querySelectorAll(".carousel img")).map(
+      image => {
+        this.image = new Image(image);
+        return this.image;
+      }
+    );
 
-    this.leftButton.style.cursor = "pointer";
-    this.leftButton.onClick = function() {};
-    // this.leftButton.addEventListener("click", () => {
-    //   console.log("------clicking left button -------------");
-    // });
+    this.rightButton.style.cursor = "pointer";
+    let count = 0;
+    this.rightButton.onClick = function() {
+      console.log("----clicking left image -------");
+      count = count + 1;
+      this.images[count].image.displayImage;
+    };
+    this.leftButton.addEventListener("click", () => {
+      console.log("------clicking left button -------------");
+    });
 
     // this.rightButton.addEventListener("click", () => {
     //   console.log("------clicking right button -------------");
