@@ -19,18 +19,24 @@ class TabLink {
     }
     <- Delete this comment block when you work on the if statement*/
     if (this.tabData === "all") {
-      console.log("------------tab data all ------------");
+      console.log("------------tab data all ------------" + this.tabData);
       this.cards = document.querySelectorAll(`.card[data-tab]`);
+      console.log("------------cards length -------" + this.cards.length);
     } else {
-      console.log("-------------tab data not all ---------");
-      this.cards = document.querySelectorAll(
-        `.card[data-tab="${this.tabData}]`
+      console.log(
+        "-------------tab data not all --------------------------------" +
+          this.tabData
       );
+      this.cards = document.querySelectorAll(
+        `.card[data-tab="${this.tabData}"]`
+      );
+      console.log("----------cards length ---------" + this.cards.length);
     }
     // Map over the newly converted NodeList we just created in our if statement above.
     //Convert each this.cards element into a new instance of the TabCard class.
     //Pass in a card object to the TabCard class.
     this.cards = Array.from(this.cards).map(card => {
+      console.log("------------cards array -----------" + card.innerHTML);
       this.tabCard = new TabCard(card);
     });
 
@@ -43,37 +49,60 @@ class TabLink {
   selectTab() {
     // Select all elements with the .tab class on them
     const tabs = document.querySelectorAll(".tab");
+    console.log("---------within selectTab ------------" + tabs.length);
+
+    console.log("------this.tab card.length " + this.cards.length);
 
     // Iterate through the NodeList removing the .active-tab class from each element
     tabs.forEach(tab => {
+      console.log(
+        "------------within forEach ------- of selectTab" + tab.innerHTML
+      );
       tab.classList.remove(".active-tab");
     });
 
     // Select all of the elements with the .card class on them
     const cards = document.querySelectorAll(".card");
+    console.log("--------getting all the cards -----------" + cards.length);
 
     // Iterate through the NodeList setting the display style each one to 'none'
     cards.forEach(card => {
+      console.log("------within the cards.forEach----------" + card.innerHTML);
       card.style.display = "none";
     });
 
     // Add a class of ".active-tab" to this.tabElement
     this.tabElement.classList.toggle(".active-tab");
+    console.log(
+      "---------adding active tab to tab Element-------" +
+        this.tabElement.classList
+    );
 
     // Notice we are looping through the this.cards array and invoking selectCard() from the TabCard class.
     // Just un-comment the code and study what is happening here.
-    this.cards.forEach(card => card.selectCard());
+    console.log("-----------cards length -------" + cards.length);
+    this.cards.forEach(tabCard => {
+      console.log(
+        "--------------within for each ------------" +
+          this.tabCard.cardElement.innerHTML
+      );
+      this.tabCard.selectCard();
+    });
   }
 }
 
 class TabCard {
   constructor(cardElement) {
     // Assign this.cardElement to the cardElement DOM reference
-    // this.cardElement;
+    console.log("----------in tab card constructor -------" + cardElement);
+    this.cardElement = cardElement;
   }
   selectCard() {
     // Update the style of this.cardElement to display = "flex"
-    // this.cardElement;
+    console.log(
+      "----------in selectCard ----------setting display to flex ------"
+    );
+    this.cardElement.style.display = "flex";
   }
 }
 
