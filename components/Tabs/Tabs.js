@@ -5,39 +5,21 @@ class TabLink {
 
     // Get the `data-tab` value from this.tabElement and store it here
     this.tabData = this.tabElement.dataset.tab;
-    console.log("-------------tab data-" + this.tabData);
 
     // We need to find out if a user clicked 'all' cards or a specific category.  Follow the instructions below to accomplish this task:
-    /* <- Delete this comment block when you work on the if statement
-    // Check to see if this.tabData is equal to 'all'
-    if(){
-      // If `all` is true, select all cards regardless of their data attribute values
-      // this.cards = ;
-    } else {
-      // else if `all` is false, only select the cards with matching this.tabData values
-      // this.cards = ;
-    }
-    <- Delete this comment block when you work on the if statement*/
     if (this.tabData === "all") {
-      console.log("------------tab data all ------------" + this.tabData);
       this.cards = document.querySelectorAll(`.card[data-tab]`);
-      console.log("------------cards length -------" + this.cards.length);
     } else {
-      console.log(
-        "-------------tab data not all --------------------------------" +
-          this.tabData
-      );
       this.cards = document.querySelectorAll(
         `.card[data-tab="${this.tabData}"]`
       );
-      console.log("----------cards length ---------" + this.cards.length);
     }
     // Map over the newly converted NodeList we just created in our if statement above.
     //Convert each this.cards element into a new instance of the TabCard class.
     //Pass in a card object to the TabCard class.
     this.cards = Array.from(this.cards).map(card => {
-      console.log("------------cards array -----------" + card.innerHTML);
       this.tabCard = new TabCard(card);
+      return this.tabCard;
     });
 
     // Add a click event that invokes this.selectTab
@@ -49,44 +31,27 @@ class TabLink {
   selectTab() {
     // Select all elements with the .tab class on them
     const tabs = document.querySelectorAll(".tab");
-    console.log("---------within selectTab ------------" + tabs.length);
-
-    console.log("------this.tab card.length " + this.cards.length);
 
     // Iterate through the NodeList removing the .active-tab class from each element
     tabs.forEach(tab => {
-      console.log(
-        "------------within forEach ------- of selectTab" + tab.innerHTML
-      );
-      tab.classList.remove(".active-tab");
+      tab.classList.remove("active-tab");
     });
 
     // Select all of the elements with the .card class on them
     const cards = document.querySelectorAll(".card");
-    console.log("--------getting all the cards -----------" + cards.length);
 
     // Iterate through the NodeList setting the display style each one to 'none'
     cards.forEach(card => {
-      console.log("------within the cards.forEach----------" + card.innerHTML);
       card.style.display = "none";
     });
 
     // Add a class of ".active-tab" to this.tabElement
-    this.tabElement.classList.toggle(".active-tab");
-    console.log(
-      "---------adding active tab to tab Element-------" +
-        this.tabElement.classList
-    );
+    this.tabElement.classList.toggle("active-tab");
 
     // Notice we are looping through the this.cards array and invoking selectCard() from the TabCard class.
     // Just un-comment the code and study what is happening here.
-    console.log("-----------cards length -------" + cards.length);
-    this.cards.forEach(tabCard => {
-      console.log(
-        "--------------within for each ------------" +
-          this.tabCard.cardElement.innerHTML
-      );
-      this.tabCard.selectCard();
+    this.cards.forEach(card => {
+      card.selectCard();
     });
   }
 }
@@ -94,14 +59,10 @@ class TabLink {
 class TabCard {
   constructor(cardElement) {
     // Assign this.cardElement to the cardElement DOM reference
-    console.log("----------in tab card constructor -------" + cardElement);
     this.cardElement = cardElement;
   }
   selectCard() {
     // Update the style of this.cardElement to display = "flex"
-    console.log(
-      "----------in selectCard ----------setting display to flex ------"
-    );
     this.cardElement.style.display = "flex";
   }
 }
