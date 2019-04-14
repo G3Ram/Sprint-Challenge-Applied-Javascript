@@ -1,3 +1,5 @@
+// This is a Carousel component. The Carousel can have any number of image and the carousel will show the images
+// one after the other based on the button clicked.
 class Carousel {
   constructor(carouselElement) {
     // getting the carousel Element
@@ -9,6 +11,7 @@ class Carousel {
     // getting the reference to right button
     this.rightButton = document.querySelector(".right-button");
 
+    //Gets all the images for carousel and creates an Image object.
     this.images = Array.from(document.querySelectorAll(".carousel img")).map(
       image => {
         this.tabImage = new Image(image);
@@ -16,38 +19,41 @@ class Carousel {
       }
     );
 
+    // setting the counter
     let count = 0;
+
+    //On right button click
     this.rightButton.addEventListener("click", () => {
-      if (count === this.images.length - 1) {
-        count = -1;
-      }
       count = count + 1;
-      this.images.forEach(image => {
-        image.imageElement.classList.remove("img-active");
-      });
-      this.images[count].imageElement.classList.toggle("img-active");
+      count = this.displayImage(count);
     });
 
+    //On left button click
     this.leftButton.addEventListener("click", () => {
       count = count - 1;
-      if (count === -1) {
-        count = 3;
-      }
-      this.images.forEach(image => {
-        image.imageElement.classList.remove("img-active");
-      });
-      this.images[count].imageElement.classList.toggle("img-active");
+      count = this.displayImage(count);
     });
+  }
+
+  // This method checks the value of the counter and displays the appropriate image.
+  displayImage(count) {
+    if (count >= this.images.length) {
+      count = 0;
+    } else if (count <= -1) {
+      count = this.images.length - 1;
+    }
+    this.images.forEach(image => {
+      image.imageElement.classList.remove("img-active");
+    });
+    this.images[count].imageElement.classList.toggle("img-active");
+    return count;
   }
 }
 
+// Constructor class for Image object
 class Image {
   constructor(image) {
     this.imageElement = image;
-  }
-
-  displayImage() {
-    this.image.classList.toggle("image-active");
   }
 }
 
