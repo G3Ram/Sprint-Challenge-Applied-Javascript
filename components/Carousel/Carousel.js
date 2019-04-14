@@ -5,42 +5,45 @@ class Carousel {
 
     // getting the reference to left button
     this.leftButton = document.querySelector(".left-button");
-    console.log(
-      "---------this.left button -------" + this.leftButton.classList
-    );
 
     // getting the reference to right button
-    this.rightButton = document.getElementById("right-button");
+    this.rightButton = document.querySelector(".right-button");
 
-    // get the images in an Array
     this.images = Array.from(document.querySelectorAll(".carousel img")).map(
       image => {
-        this.image = new Image(image);
-        return this.image;
+        this.tabImage = new Image(image);
+        return this.tabImage;
       }
     );
 
-    this.rightButton.style.cursor = "pointer";
     let count = 0;
-    this.rightButton.onClick = function() {
-      console.log("----clicking left image -------");
+    this.rightButton.addEventListener("click", () => {
+      if (count === this.images.length - 1) {
+        count = -1;
+      }
       count = count + 1;
-      this.images[count].image.displayImage;
-    };
-    this.leftButton.addEventListener("click", () => {
-      console.log("------clicking left button -------------");
+      this.images.forEach(image => {
+        image.imageElement.classList.remove("img-active");
+      });
+      this.images[count].imageElement.classList.toggle("img-active");
     });
 
-    // this.rightButton.addEventListener("click", () => {
-    //   console.log("------clicking right button -------------");
-    // });
+    this.leftButton.addEventListener("click", () => {
+      count = count - 1;
+      if (count === -1) {
+        count = 3;
+      }
+      this.images.forEach(image => {
+        image.imageElement.classList.remove("img-active");
+      });
+      this.images[count].imageElement.classList.toggle("img-active");
+    });
   }
 }
 
 class Image {
   constructor(image) {
-    console.log("----------------within image constructor -----------");
-    this.image = image;
+    this.imageElement = image;
   }
 
   displayImage() {
